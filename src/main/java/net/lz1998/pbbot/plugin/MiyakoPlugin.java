@@ -34,20 +34,20 @@ public class MiyakoPlugin extends BotPlugin {
                 .at(userId).text(" 你好，我是露米娜-心音！")
                 .image("https://i.loli.net/2021/08/30/6Jf1RWQVBaCDmS3.png");
         Msg msgLevel_0 = Msg.builder()
-                .text("[msgLevel_0]= \n")
-                .text("抽中了大吉！");
+//                .text("[msgLevel_0]= \n")
+                .at(userId).text(" 抽中了大吉！");
         Msg msgLevel_1 = Msg.builder()
-                .text("[msgLevel_1]= \n")
-                .text("抽中了中吉！");
+//                .text("[msgLevel_1]= \n")
+                .at(userId).text(" 抽中了中吉！");
         Msg msgLevel_2 = Msg.builder()
-                .text("[msgLevel_2]= \n")
-                .text("抽中了末吉！");
+//                .text("[msgLevel_2]= \n")
+                .at(userId).text(" 抽中了末吉！");
         Msg msgLevel_3 = Msg.builder()
-                .text("[msgLevel_3]= \n")
-                .text("抽中了凶！摸摸头~");
+//                .text("[msgLevel_3]= \n")
+                .at(userId).text(" 抽中了凶！摸摸头~");
         Msg msgLevel_4 = Msg.builder()
-                .text("[msgLevel_4]= \n")
-                .text("抽中了大凶！呜哇！喵都发火了！");
+//                .text("[msgLevel_4]= \n")
+                .at(userId).text(" 抽中了大凶！呜哇！喵都发火了！");
 
         //  构建判断标识
         boolean atLumina_raw = rawMessage.contains("<at qq=\"2792556795\"/>");
