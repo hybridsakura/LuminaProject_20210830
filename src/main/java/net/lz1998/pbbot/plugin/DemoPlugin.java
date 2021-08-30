@@ -15,10 +15,11 @@ public class DemoPlugin extends BotPlugin {
         long userId = event.getUserId();
         Msg msg = Msg.builder()
                 .face(1)
-                .text("hello1")
-                .text("hello2")
-                .image("https://www.baidu.com/img/flexible/logo/pc/result@2.png");
+                .text("你好，我是露米娜，目前正在进行测试\n")
+                .text("如有冒犯还请谅解，本消息由IDEA中的运行的QQBOT程序自动发出")
+                .image("https://i.loli.net/2021/08/30/6Jf1RWQVBaCDmS3.png");
         bot.sendPrivateMsg(userId, msg, false);
+
         return MESSAGE_BLOCK;
     }
 }
