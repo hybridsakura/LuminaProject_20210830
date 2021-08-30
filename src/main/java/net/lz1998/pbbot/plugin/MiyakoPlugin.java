@@ -59,25 +59,25 @@ public class MiyakoPlugin extends BotPlugin {
         int ran = r.nextInt(100);
         //  随机化
 
-        boolean inRangeA = ran >= 95;
-        boolean inRangeB = ran < 95 && ran >= 85;
-        boolean inRangeC = ran < 85 && ran >= 65;
-        boolean inRangeD = ran < 65 && ran >= 40;
-        boolean inRangeE = ran < 40;
+        boolean inRangeA = ran >= 80;
+        boolean inRangeB = ran < 80 && ran >= 60;
+        boolean inRangeC = ran < 60 && ran >= 40;
+        boolean inRangeD = ran < 40 && ran >= 20;
+        boolean inRangeE = ran <= 19 && ran > 0;
 
 
         //  构建消息并发出
         if (rawMessage.contains("心音妹妹")) {
             bot.sendGroupMsg(groupId, msg1, false);
-        } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && inRangeA) {
+        } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && inRangeA && findStringGacha) {
             bot.sendGroupMsg(groupId, msgLevel_0, false);
-        } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && inRangeB) {
+        } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && inRangeB && findStringGacha) {
             bot.sendGroupMsg(groupId, msgLevel_1, false);
-        } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && inRangeC) {
+        } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && inRangeC && findStringGacha) {
             bot.sendGroupMsg(groupId, msgLevel_2, false);
-        } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && inRangeD) {
+        } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && inRangeD && findStringGacha) {
             bot.sendGroupMsg(groupId, msgLevel_3, false);
-        } else if(atLumina_raw || atLumina_miyako || atLumina_lm) {
+        } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && inRangeE && findStringGacha) {
             bot.sendGroupMsg(groupId, msgLevel_4, false);
         }
 
