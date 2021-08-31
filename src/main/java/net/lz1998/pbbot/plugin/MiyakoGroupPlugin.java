@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.Random;
 
 @Component
-public class MiyakoPlugin extends BotPlugin {
+public class MiyakoGroupPlugin extends BotPlugin {
 
     @Override
     public int onGroupMessage(@NotNull Bot bot, @NotNull OnebotEvent.GroupMessageEvent event) {
@@ -33,27 +33,44 @@ public class MiyakoPlugin extends BotPlugin {
                 .text("露米娜应答测试： \n")
                 .at(userId).text(" 你好，我是露米娜-心音！")
                 .image("https://i.loli.net/2021/08/30/6Jf1RWQVBaCDmS3.png");
+
+        Date date = new Date();
+        Msg msg2 = Msg.builder()
+                .reply(event.getMessageId()).at(userId).text(" 你好，我是心音 LuminaRobot目前运行中...\n")
+                .text("new Date() = "+date);
+
         Msg msgLevel_0 = Msg.builder()
 //                .text("[msgLevel_0]= \n")
-                .at(userId).text(" 抽中了大吉！");
+                .reply(event.getMessageId()).at(userId).text(" 抽中了大吉！");
         Msg msgLevel_1 = Msg.builder()
 //                .text("[msgLevel_1]= \n")
-                .at(userId).text(" 抽中了中吉！");
+                .reply(event.getMessageId()).at(userId).text(" 抽中了中吉！");
         Msg msgLevel_2 = Msg.builder()
 //                .text("[msgLevel_2]= \n")
-                .at(userId).text(" 抽中了末吉！");
+                .reply(event.getMessageId()).at(userId).text(" 抽中了木吉！（欸？）");
         Msg msgLevel_3 = Msg.builder()
 //                .text("[msgLevel_3]= \n")
-                .at(userId).text(" 抽中了凶！摸摸头~");
+                .reply(event.getMessageId()).at(userId).text(" 抽中了凶！摸摸头~");
         Msg msgLevel_4 = Msg.builder()
 //                .text("[msgLevel_4]= \n")
-                .at(userId).text(" 抽中了大凶！呜哇！喵都发火了！");
+                .reply(event.getMessageId()).at(userId).text(" 抽中了大凶！呜哇！喵都发火了！");
+
+        Msg publicMessage_1 = Msg.builder()
+                .reply(event.getMessageId()).at(userId).text("欸嘿嘿，被摸了！");
+        Msg publicMessage_2_1 = Msg.builder()
+                .reply(event.getMessageId()).at(userId).text("az \n")
+                .text("那就。。。抱住蹭蹭！（喵呜~喵呜~）");
+        Msg publicMessage_2_2 = Msg.builder()
+                .reply(event.getMessageId()).at(userId)
+                .text("咱。。。咱不认识你的说（躲远远）");
+
 
         //  构建判断标识
         boolean atLumina_raw = rawMessage.contains("<at qq=\"2792556795\"/>");
         boolean atLumina_miyako = rawMessage.contains("@女神转生的喵都厨");
         boolean atLumina_lm = rawMessage.contains("@lumina");
         boolean findStringGacha = rawMessage.contains("抽签");
+        boolean userID_Master = userId == 179223207 || userId == 1209237247;
 
         Random r = new Random(new Date().getTime());
         int ran = r.nextInt(100);
@@ -67,7 +84,7 @@ public class MiyakoPlugin extends BotPlugin {
 
 
         //  构建消息并发出
-        if (rawMessage.contains("心音妹妹")) {
+        if (rawMessage.contains("心音，收到请回答")) {
             bot.sendGroupMsg(groupId, msg1, false);
         } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && inRangeA && findStringGacha) {
             bot.sendGroupMsg(groupId, msgLevel_0, false);
@@ -79,6 +96,16 @@ public class MiyakoPlugin extends BotPlugin {
             bot.sendGroupMsg(groupId, msgLevel_3, false);
         } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && inRangeE && findStringGacha) {
             bot.sendGroupMsg(groupId, msgLevel_4, false);
+        }
+
+        if((atLumina_raw || atLumina_miyako || atLumina_lm) && rawMessage.contains("摸摸猫耳朵")) {
+            bot.sendGroupMsg(groupId, publicMessage_1, false);
+        } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && rawMessage.contains("lumina-test")) {
+            bot.sendGroupMsg(groupId, msg2, false);
+        } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && userID_Master && rawMessage.contains("老婆！")) {
+            bot.sendGroupMsg(groupId, publicMessage_2_1, false);
+        } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && rawMessage.contains("老婆！")) {
+            bot.sendGroupMsg(groupId, publicMessage_2_2, false);
         }
 
 //        else if((atLumina_raw || atLumina_miyako) && findStringGacha && userIdBox == 179223207) {
