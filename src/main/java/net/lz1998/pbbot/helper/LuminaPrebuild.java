@@ -1,15 +1,12 @@
 package net.lz1998.pbbot.helper;
 
-import net.lz1998.pbbot.helper.entity.LuminaMessage;
-
-import java.util.ArrayList;
-import java.util.List;
+import net.lz1998.pbbot.helper.entity.LuminaRequireSetup;
 
 public class LuminaPrebuild {
 
-    public LuminaMessage setLuminaAtRule(LuminaMessage message, String rawMessage) {
+    public LuminaRequireSetup setLuminaAtRule(LuminaRequireSetup requireSetup, String rawMessage) {
 
-        if(message != null) {
+        if(requireSetup != null) {
             //  指定lumina响应的at名
 
             boolean atLumina_raw = rawMessage.contains("<at qq=\"2792556795\"/>");
@@ -28,10 +25,22 @@ public class LuminaPrebuild {
             boolean atLumina_miyako = atLumina_miyako_1 || atLumina_miyako_2;
             boolean atLumina_lm = atLumina_lm_1 || atLumina_lm_2;
 
-            boolean atLumina = atLumina_basic || atLumina_miyako || atLumina_lm;
+            boolean atKeyword_1_1 = rawMessage.contains("@宫代泉里");
+            boolean atKeyword_1_2 = rawMessage.contains("<at qq=\"00000000\"/");
+            boolean atKeyword_2_1 = rawMessage.contains("@一直恐惧");
+            boolean atKeyword_2_2 = rawMessage.contains("<at qq=\"00000000\"/");
+            boolean atKeyword_3_1 = rawMessage.contains("@过往已既");
+            boolean atKeyword_3_2 = rawMessage.contains("<at qq=\"00000000\"/");
+            boolean atKeyword_4_1 = rawMessage.contains("@萌新");
+            boolean atKeyword_4_2 = rawMessage.contains("@公主");
+            boolean atKeyword_4_3 = rawMessage.contains("<at qq=\"00000000\"/");
+            boolean atKeyword = atKeyword_1_1 || atKeyword_1_2 || atKeyword_2_1 || atKeyword_2_2 || atKeyword_3_1 || atKeyword_3_2 || atKeyword_4_1 || atKeyword_4_2 || atKeyword_4_3;
 
-            message.setAtLumina(atLumina);
-            return message;
+
+            boolean atLumina = atLumina_basic || atLumina_miyako || atLumina_lm || atKeyword;
+
+            requireSetup.setRequireAtLumina(atLumina);
+            return requireSetup;
         }else {
             System.err.println("setLuminaAtRule传入参数不得为空！");
             return null;

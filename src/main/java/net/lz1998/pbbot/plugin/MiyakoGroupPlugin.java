@@ -20,9 +20,9 @@ public class MiyakoGroupPlugin extends BotPlugin {
         long userId = event.getUserId();
         long groupId = event.getGroupId();
         String rawMessage = event.getRawMessage();
-        System.out.println("[AI-LM][UserID/用户QQ号] " + userId);
-        System.out.println("[AI-LM][GroupID/QQ群号] " + groupId);
-        System.out.println("[AI-LM][RawMessage/原始消息] " + rawMessage);
+        System.out.println("1[AI-LM][UserID/用户QQ号] " + userId);
+        System.out.println("1[AI-LM][GroupID/QQ群号] " + groupId);
+        System.out.println("1[AI-LM][RawMessage/原始消息] " + rawMessage);
 
         //  装箱操作
         Long userIdBox = userId;
@@ -55,8 +55,10 @@ public class MiyakoGroupPlugin extends BotPlugin {
 //                .text("[msgLevel_4]= \n")
                 .reply(event.getMessageId()).at(userId).text(" 抽中了大凶！呜哇！喵都发火了！");
 
-        Msg publicMessage_1 = Msg.builder()
-                .reply(event.getMessageId()).at(userId).text("欸嘿嘿，被摸了！");
+        Msg publicMessage_1_1 = Msg.builder()
+                .reply(event.getMessageId()).at(userId).text("欸嘿嘿，被摸耳朵了！");
+        Msg publicMessage_1_2 = Msg.builder()
+                .reply(event.getMessageId()).at(userId).text("欸嘿嘿，被摸头了！");
         Msg publicMessage_2_1 = Msg.builder()
                 .reply(event.getMessageId()).at(userId).text("az \n")
                 .text("那就。。。抱住蹭蹭！（喵呜~喵呜~）");
@@ -64,11 +66,16 @@ public class MiyakoGroupPlugin extends BotPlugin {
                 .reply(event.getMessageId()).at(userId)
                 .text("咱。。。咱不认识你的说（躲远远）");
 
+        Msg publicMessage_3 = Msg.builder()
+                .reply(event.getMessageId()).at(userId)
+                .text("咱在的，程序目前运行中");
+
 
         //  构建判断标识
         boolean atLumina_raw = rawMessage.contains("<at qq=\"2792556795\"/>");
         boolean atLumina_miyako = rawMessage.contains("@女神转生的喵都厨");
         boolean atLumina_lm = rawMessage.contains("@lumina");
+        boolean atLumina_lm_1 = rawMessage.contains("@luminabot");
         boolean findStringGacha = rawMessage.contains("抽签");
         boolean userID_Master = userId == 179223207 || userId == 1209237247;
 
@@ -86,20 +93,24 @@ public class MiyakoGroupPlugin extends BotPlugin {
         //  构建消息并发出
         if (rawMessage.contains("心音，收到请回答")) {
             bot.sendGroupMsg(groupId, msg1, false);
-        } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && inRangeA && findStringGacha) {
+        } else if((atLumina_raw || atLumina_miyako || atLumina_lm || atLumina_lm_1) && inRangeA && findStringGacha) {
             bot.sendGroupMsg(groupId, msgLevel_0, false);
-        } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && inRangeB && findStringGacha) {
+        } else if((atLumina_raw || atLumina_miyako || atLumina_lm || atLumina_lm_1) && inRangeB && findStringGacha) {
             bot.sendGroupMsg(groupId, msgLevel_1, false);
-        } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && inRangeC && findStringGacha) {
+        } else if((atLumina_raw || atLumina_miyako || atLumina_lm || atLumina_lm_1) && inRangeC && findStringGacha) {
             bot.sendGroupMsg(groupId, msgLevel_2, false);
-        } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && inRangeD && findStringGacha) {
+        } else if((atLumina_raw || atLumina_miyako || atLumina_lm || atLumina_lm_1) && inRangeD && findStringGacha) {
             bot.sendGroupMsg(groupId, msgLevel_3, false);
-        } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && inRangeE && findStringGacha) {
+        } else if((atLumina_raw || atLumina_miyako || atLumina_lm || atLumina_lm_1) && inRangeE && findStringGacha) {
             bot.sendGroupMsg(groupId, msgLevel_4, false);
         }
 
         if((atLumina_raw || atLumina_miyako || atLumina_lm) && rawMessage.contains("摸摸猫耳朵")) {
-            bot.sendGroupMsg(groupId, publicMessage_1, false);
+            bot.sendGroupMsg(groupId, publicMessage_1_1, false);
+        } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && rawMessage.contains("摸摸头")) {
+            bot.sendGroupMsg(groupId, publicMessage_1_2, false);
+        } else if((rawMessage.contains("露米娜") || rawMessage.contains("心音")) && rawMessage.contains("在吗")) {
+            bot.sendGroupMsg(groupId, publicMessage_3, false);
         } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && rawMessage.contains("lumina-test")) {
             bot.sendGroupMsg(groupId, msg2, false);
         } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && userID_Master && rawMessage.contains("老婆！")) {
@@ -114,6 +125,6 @@ public class MiyakoGroupPlugin extends BotPlugin {
 //            bot.sendGroupMsg(groupId, msgLevel_0, false);
 //        }
 
-        return MESSAGE_BLOCK;
+        return MESSAGE_IGNORE;
     }
 }

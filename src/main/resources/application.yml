@@ -6,6 +6,7 @@ spring:
 #      - net.lz1998.pbbot.plugin.Demo2Plugin # 测试插件
       - net.lz1998.pbbot.plugin.MiyakoPrivatePlugin # 私聊插件
       - net.lz1998.pbbot.plugin.MiyakoGroupPlugin # 群聊插件
+      - net.lz1998.pbbot.plugin.LuminaGroupPlugin # 群聊插件
 #      - net.lz1998.pbbot.plugin.ImagePlugin # 动态生成图片插件
 #      - net.lz1998.pbbot.plugin.HelloPlugin # 测试插件
 

@@ -1,47 +1,58 @@
 package net.lz1998.pbbot.helper;
 
 import net.lz1998.pbbot.bot.Bot;
-import net.lz1998.pbbot.helper.entity.LuminaMessage;
+import net.lz1998.pbbot.helper.entity.LuminaRequireSetup;
 import net.lz1998.pbbot.utils.Msg;
 import onebot.OnebotEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class LuminaPluginHelper {
 
-    public void sendBasicMessage(@NotNull Bot bot, @NotNull OnebotEvent.GroupMessageEvent event, LuminaMessage luminaMessage) {
+    LuminaPrebuild luminaPrebuild = new LuminaPrebuild();
+
+    public void sendBasicMessageWithAt(@NotNull Bot bot, @NotNull OnebotEvent.GroupMessageEvent event, LuminaRequireSetup luminaRequireSetup) {
 
         //  获取群号
-        System.out.println("[AI-LM][UserID/用户QQ号] " + event.getUserId());
-        System.out.println("[AI-LM][GroupID/QQ群号] " + event.getGroupId());
-        System.out.println("[AI-LM][RawMessage/原始消息] " + event.getRawMessage());
+        System.out.println("2[AI-LM][UserID/用户QQ号] " + event.getUserId());
+        System.out.println("2[AI-LM][GroupID/QQ群号] " + event.getGroupId());
+        System.out.println("2[AI-LM][RawMessage/原始消息] " + event.getRawMessage());
         //  装箱操作
         Long userIdBox = event.getUserId();
         Long groupIdBox = event.getGroupId();
 
-        //  判断1 关键字全字匹配吗？
+//        luminaRequireSetup = luminaPrebuild.setLuminaAtRule(luminaRequireSetup, event.getRawMessage());
 
-        //  判断2 是否针对At进行匹配？
+        Msg msg_running;
+        LuminaRequireSetup tempSetup = luminaPrebuild.setLuminaAtRule(luminaRequireSetup, event.getRawMessage());
 
-        //  判断3 回复还是新消息
+        System.out.println("=============================");
+        System.out.println("侦测到的信息 是否艾特了露米娜：" + (tempSetup.isRequireAtLumina() ? "是":"否"));
+        System.out.println("侦测到的信息 要求匹配内容:" + ("".equals(tempSetup.getMessageDetected()) ? "（空字符串）" : tempSetup.getMessageDetected()));
+        System.out.println("侦测到的信息 全字匹配要求：" + (tempSetup.isMessageDetected_requireEquals() ? "是":"否"));
+        System.out.println("回复时 使用回复框回复对话：" + (tempSetup.isRequireRespReply() ? "是":"否"));
+        System.out.println("回复时 对对方进行艾特操作：" + (tempSetup.isRequireRespAt() ? "是":"否"));
+        System.out.println("=============================");
 
-        //  判断4
+        if(tempSetup.isRequireRespReply() && tempSetup.isRequireAtLumina()) {
+            msg_running = Msg.builder()
+                    .reply(event.getMessageId())
+                    .text(tempSetup.getMessageResponse());
+            bot.sendGroupMsg(event.getGroupId(), msg_running, false);
+        } else if(!tempSetup.isRequireRespReply() && tempSetup.isRequireAtLumina()){
+            msg_running = Msg.builder()
+                    .at(event.getUserId())
+                    .text(tempSetup.getMessageResponse());
+            bot.sendGroupMsg(event.getGroupId(), msg_running, false);
+        }
+
+
+
+
+        System.out.println("test test");
+
+
 
     }
 
-//    public void sendBasicMessageRespAt(@NotNull Bot bot, @NotNull OnebotEvent.GroupMessageEvent event, LuminaMessage luminaMessage) {
-//
-//        //  获取群号
-//        System.out.println("[AI-LM][UserID/用户QQ号] " + event.getUserId());
-//        System.out.println("[AI-LM][GroupID/QQ群号] " + event.getGroupId());
-//        System.out.println("[AI-LM][RawMessage/原始消息] " + event.getRawMessage());
-//        //  装箱操作
-//        Long userIdBox = event.getUserId();
-//        Long groupIdBox = event.getGroupId();
-////        //  构建消息
-////        Msg msg_hello = Msg.builder()
-////                .text("露米娜应答测试： \n")
-////                .at(event.getUserId()).text(" 你好，我是露米娜-心音！")
-////                .image("https://i.loli.net/2021/08/30/6Jf1RWQVBaCDmS3.png");
-//    }
 
 }
