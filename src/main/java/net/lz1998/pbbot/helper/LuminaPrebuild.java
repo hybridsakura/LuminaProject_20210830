@@ -28,7 +28,7 @@ public class LuminaPrebuild {
             boolean atKeyword_1_1 = rawMessage.contains("@宫代泉里");
             boolean atKeyword_1_2 = rawMessage.contains("<at qq=\"00000000\"/");
             boolean atKeyword_2_1 = rawMessage.contains("@一直恐惧");
-            boolean atKeyword_2_2 = rawMessage.contains("<at qq=\"00000000\"/");
+            boolean atKeyword_2_2 = rawMessage.contains("<at qq=\"000000000\"/");
             boolean atKeyword_3_1 = rawMessage.contains("@过往已既");
             boolean atKeyword_3_2 = rawMessage.contains("<at qq=\"00000000\"/");
             boolean atKeyword_4_1 = rawMessage.contains("@萌新");
