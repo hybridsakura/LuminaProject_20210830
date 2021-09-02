@@ -59,6 +59,8 @@ public class MiyakoGroupPlugin extends BotPlugin {
                 .reply(event.getMessageId()).at(userId).text("欸嘿嘿，被摸耳朵了！");
         Msg publicMessage_1_2 = Msg.builder()
                 .reply(event.getMessageId()).at(userId).text("欸嘿嘿，被摸头了！");
+        Msg publicMessage_1_3 = Msg.builder()
+                .reply(event.getMessageId()).at(userId).text("抱抱！");
         Msg publicMessage_2_1 = Msg.builder()
                 .reply(event.getMessageId()).at(userId).text("az \n")
                 .text("那就。。。抱住蹭蹭！（喵呜~喵呜~）");
@@ -77,7 +79,7 @@ public class MiyakoGroupPlugin extends BotPlugin {
         boolean atLumina_lm = rawMessage.contains("@lumina");
         boolean atLumina_lm_1 = rawMessage.contains("@luminabot");
         boolean findStringGacha = rawMessage.contains("抽签");
-        boolean userID_Master = userId == 179223207 || userId == 1209237247;
+        boolean userID_Master = userId == 179223207 || userId == 1209237247 || userId == 1053310366 || userId == 1354169744 || userId == 1317274709 || userId == 1679619685 || userId == 1761133869;
 
         Random r = new Random(new Date().getTime());
         int ran = r.nextInt(100);
@@ -105,15 +107,17 @@ public class MiyakoGroupPlugin extends BotPlugin {
             bot.sendGroupMsg(groupId, msgLevel_4, false);
         }
 
-        if((atLumina_raw || atLumina_miyako || atLumina_lm) && rawMessage.contains("摸摸猫耳朵")) {
+        if((atLumina_raw || atLumina_miyako || atLumina_lm) && (rawMessage.contains("摸摸猫耳朵") || rawMessage.contains("摸摸耳朵"))) {
             bot.sendGroupMsg(groupId, publicMessage_1_1, false);
         } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && rawMessage.contains("摸摸头")) {
             bot.sendGroupMsg(groupId, publicMessage_1_2, false);
+        } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && rawMessage.contains("摸摸")) {
+            bot.sendGroupMsg(groupId, publicMessage_1_3, false);
         } else if((rawMessage.contains("露米娜") || rawMessage.contains("心音")) && rawMessage.contains("在吗")) {
             bot.sendGroupMsg(groupId, publicMessage_3, false);
         } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && rawMessage.contains("lumina-test")) {
             bot.sendGroupMsg(groupId, msg2, false);
-        } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && userID_Master && rawMessage.contains("老婆！")) {
+        } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && userID_Master && (rawMessage.contains("老婆！") || rawMessage.contains("老婆"))) {
             bot.sendGroupMsg(groupId, publicMessage_2_1, false);
         } else if((atLumina_raw || atLumina_miyako || atLumina_lm) && rawMessage.contains("老婆！")) {
             bot.sendGroupMsg(groupId, publicMessage_2_2, false);
