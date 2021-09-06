@@ -30,25 +30,6 @@ public class LuminaPrebuild {
             boolean atLumina_miyako = atLumina_miyako_1 || atLumina_miyako_2;
             boolean atLumina_lm = atLumina_lm_1 || atLumina_lm_2;
 
-//            boolean atKeyword_1_1 = rawMessage.contains("@宫代泉里");
-//            boolean atKeyword_1_2 = rawMessage.contains("<at qq=\"3585886565\"/");
-//            boolean atKeyword_2_1 = rawMessage.contains("@一直恐惧");
-//            boolean atKeyword_2_2 = rawMessage.contains("<at qq=\"1053310366\"/");
-//            boolean atKeyword_3_1 = rawMessage.contains("@过往已既");
-//            boolean atKeyword_3_2 = rawMessage.contains("<at qq=\"1354169744\"/");
-//            boolean atKeyword_4_1 = rawMessage.contains("@萌新");
-//            boolean atKeyword_4_2 = rawMessage.contains("@公主");
-//            boolean atKeyword_4_3 = rawMessage.contains("<at qq=\"1209237247\"/");
-//            boolean atKeyword_5_1 = rawMessage.contains("@L'enfer, c'est les autres");
-//            boolean atKeyword_5_2 = rawMessage.contains("@ずっとこのまま");
-//            boolean atKeyword_5_3 = rawMessage.contains("<at qq=\"1317274709\"/");
-//            boolean atKeyword = atKeyword_1_1 || atKeyword_1_2 ||
-//                    atKeyword_2_1 || atKeyword_2_2 ||
-//                    atKeyword_3_1 || atKeyword_3_2 ||
-//                    atKeyword_4_1 || atKeyword_4_2 || atKeyword_4_3 ||
-//                    atKeyword_5_1 || atKeyword_5_2 || atKeyword_5_3;
-
-
             boolean atLumina = atLumina_basic || atLumina_miyako || atLumina_lm;
 
             requireSetup.setDetectAtLumina(atLumina);
