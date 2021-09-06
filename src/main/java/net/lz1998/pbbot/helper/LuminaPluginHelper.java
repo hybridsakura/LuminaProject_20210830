@@ -10,12 +10,14 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings("DuplicatedCode")
 public class LuminaPluginHelper {
 
     LuminaPrebuild luminaPrebuild = new LuminaPrebuild();
+    LuminaDetectHelper luminaDetectHelper = new LuminaDetectHelper();
     LuminaGacha luminaGacha = new LuminaGacha();
 
-    public void sendBasicMessageWithAt(@NotNull Bot bot, @NotNull OnebotEvent.GroupMessageEvent event, LuminaRequireSetup luminaRequireSetup) {
+    public void sendBasicMessage(@NotNull Bot bot, @NotNull OnebotEvent.GroupMessageEvent event, LuminaRequireSetup luminaRequireSetup) {
 
         //  获取群号
         System.out.println("LuminaPluginHelper#[AI-LM][UserID/用户QQ号] " + event.getUserId());
@@ -53,24 +55,76 @@ public class LuminaPluginHelper {
 //
         boolean atDetectAndRequire = luminaRequireSetup.isRequireAtLumina() && luminaRequireSetup.isDetectAtLumina();
         boolean atNotDetect = !luminaRequireSetup.isDetectAtLumina();
+        boolean matchedKeyword = luminaDetectHelper.checkDetectMainKeyword(event.getRawMessage(), luminaRequireSetup.getMasterKeyword(), luminaRequireSetup.getSecondKeyword());
+        //  测试区 测试完需删除
+        boolean otherKeywordListMatched = luminaDetectHelper.checkDetectOtherKeywordList(event.getRawMessage(), luminaRequireSetup.getOtherKeywordList());
+
+        System.out.println("Master和Second其中一个匹配？" + (matchedKeyword ? "是" : "否"));
+        System.out.println("OtherKeyword其中一个匹配？" + (otherKeywordListMatched ? "是" : "否"));
 
         Map<String, List<String>> tempMap = luminaRequireSetup.getHybridRespondMap();
         List<String> listText = tempMap.get("return-text");
         List<String> textImage = tempMap.get("return-image");
 
+
+
+
+
         Msg msg_running;
-        if(luminaRequireSetup.isRequireRespReply() && atNotDetect && event.getRawMessage().contains(luminaRequireSetup.getMasterKeyword()) && (event.getRawMessage().contains(otherKeywordList.get(0)) || event.getRawMessage().contains(otherKeywordList.get(1)))) {
+        if(luminaRequireSetup.isRequireRespReply() && atNotDetect && matchedKeyword && luminaDetectHelper.checkDetectOtherKeywordList(event.getRawMessage(), luminaRequireSetup.getOtherKeywordList())) {
             msg_running = Msg.builder()
                     .reply(event.getMessageId())
                     .text(listText.get(0));
             bot.sendGroupMsg(event.getGroupId(), msg_running, false);
-        } else if(!luminaRequireSetup.isRequireRespReply() && atNotDetect && event.getRawMessage().contains(luminaRequireSetup.getMasterKeyword()) && (event.getRawMessage().contains(otherKeywordList.get(0)) || event.getRawMessage().contains(otherKeywordList.get(1)))){
+        } else if(!luminaRequireSetup.isRequireRespReply() && atNotDetect && matchedKeyword && luminaDetectHelper.checkDetectOtherKeywordList(event.getRawMessage(), luminaRequireSetup.getOtherKeywordList())){
             msg_running = Msg.builder()
                     .at(event.getUserId())
                     .text(listText.get(0));
             bot.sendGroupMsg(event.getGroupId(), msg_running, false);
         }
 //        bot.sendGroupMsg(event.getGroupId(), Msg.builder().reply(event.getMessageId()).text("lumina-factory-test"), false);
+    }
+
+    public void sendMultiMessage(@NotNull Bot bot, @NotNull OnebotEvent.GroupMessageEvent event, LuminaRequireSetup luminaRequireSetup) {
+
+        //  获取群号
+        System.out.println("LuminaPluginHelper#[AI-LM][UserID/用户QQ号] " + event.getUserId());
+        System.out.println("LuminaPluginHelper#[AI-LM][GroupID/QQ群号] " + event.getGroupId());
+        System.out.println("LuminaPluginHelper#[AI-LM][RawMessage/原始消息] " + event.getRawMessage());
+        //  装箱操作
+//        Long userIdBox = event.getUserId();
+//        Long groupIdBox = event.getGroupId();
+
+
+        //  对消息中是否包含at露米娜的内容进行侦测
+        luminaRequireSetup = luminaPrebuild.setLuminaAtRule(luminaRequireSetup, event.getRawMessage());
+
+        //  消息状况报告
+        System.out.println("=============================");
+        System.out.println("是否要求 检测艾特露米娜：" + (luminaRequireSetup.isRequireAtLumina() ? "是":"否"));
+        System.out.println("侦测到的信息 是否艾特了露米娜：" + (luminaRequireSetup.isDetectAtLumina() ? "是":"否"));
+
+        System.out.println("要求侦测的主关键字：" + luminaRequireSetup.getMasterKeyword());
+        System.out.println("要求侦测的从关键字：" + luminaRequireSetup.getMasterKeyword());
+
+        List<String> otherKeywordList = luminaRequireSetup.getOtherKeywordList();
+        StringBuilder otherKeywordListStr;
+        otherKeywordListStr = new StringBuilder();
+        int count = 0;
+        for(String s : otherKeywordList) {
+            count += 1;
+            otherKeywordListStr.append("[OtherKeyword#").append(count).append("=").append(s).append("]");
+        }
+        System.out.println("要求匹配的其他关键字:" + otherKeywordListStr);
+        System.out.println("侦测到的信息 全字匹配要求：" + (luminaRequireSetup.isRequireKeywordMatch() ? "是":"否"));
+        System.out.println("回复时 使用回复框回复对话：" + (luminaRequireSetup.isRequireRespReply() ? "是":"否"));
+        System.out.println("回复时 对对方进行艾特操作：" + (luminaRequireSetup.isRequireRespAt() ? "是":"否"));
+        System.out.println("=============================");
+//
+        boolean atDetectAndRequire = luminaRequireSetup.isRequireAtLumina() && luminaRequireSetup.isDetectAtLumina();
+        boolean atNotDetect = !luminaRequireSetup.isDetectAtLumina();
+        boolean matchedKeyword = event.getRawMessage().contains(luminaRequireSetup.getMasterKeyword()) || event.getRawMessage().contains(luminaRequireSetup.getSecondKeyword());
+
     }
 
     //  上级函数传入一捆消息，并针对处理
