@@ -4,6 +4,7 @@ import net.lz1998.pbbot.bot.Bot;
 import net.lz1998.pbbot.bot.BotPlugin;
 import net.lz1998.pbbot.helper.LuminaPluginHelper;
 import net.lz1998.pbbot.helper.LuminaPrebuild;
+import net.lz1998.pbbot.helper.app.LuminaGacha;
 import net.lz1998.pbbot.helper.entity.LuminaRequireSetup;
 import onebot.OnebotEvent;
 import org.jetbrains.annotations.NotNull;
@@ -20,6 +21,7 @@ public class LuminaGroupPlugin extends BotPlugin {
 
     LuminaPluginHelper pluginHelper = new LuminaPluginHelper();
     LuminaPrebuild luminaPrebuild = new LuminaPrebuild();
+    LuminaGacha luminaGacha = new LuminaGacha();
 
     @Override
     public int onGroupMessage(@NotNull Bot bot, @NotNull OnebotEvent.GroupMessageEvent event) {
@@ -154,6 +156,7 @@ public class LuminaGroupPlugin extends BotPlugin {
         List<String> loadedReturnImage_Gacha = new ArrayList<>();
         //  构造关键字匹配
         setupGacha.setMasterKeyword("抽签");
+        setupGacha.setRequireKeywordMatch(true);
 //        lumina_Setup2109061041.setSecondKeyword("");
 //        otherKeyword_S0_2109061041.add("公主");
         //  是否需要检测艾特露米娜
@@ -162,15 +165,15 @@ public class LuminaGroupPlugin extends BotPlugin {
         setupGacha.setRequireRespAt(false);
         setupGacha.setRequireRespReply(true);
         //  构造回复信息
-        loadedReturnText_Gacha.add("所选用户已设置成[luminabot]的管理员（目前无实质功能）");
-        loadedReturnImage_Gacha.add("/image/1");
+        loadedReturnText_Gacha.add(luminaGacha.gachaResultGen().get(0));
+        loadedReturnImage_Gacha.add(luminaGacha.gachaResultGen().get(1));
         hybridMessageMap_Gacha.put(RETURN_TEXT, loadedReturnText_Gacha);
         hybridMessageMap_Gacha.put(RETURN_IMAGE, loadedReturnImage_Gacha);
         //  构造的参数包装统一设定
 //        setupGacha.setOtherKeywordList(otherKeyword_Gacha);
         setupGacha.setHybridRespondMap(hybridMessageMap_Gacha);
         //  调用方法发送消息
-//        pluginHelper.sendBasicMessage(bot, event, setupGacha);
+        pluginHelper.sendMultiMessage(bot, event, setupGacha);
 
 
 //        //  [1]是抽签

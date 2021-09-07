@@ -10,12 +10,14 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Map;
 
+import static net.lz1998.pbbot.helper.LuminaCommon.RETURN_IMAGE;
+import static net.lz1998.pbbot.helper.LuminaCommon.RETURN_TEXT;
+
 @SuppressWarnings("DuplicatedCode")
 public class LuminaPluginHelper {
 
     LuminaPrebuild luminaPrebuild = new LuminaPrebuild();
     LuminaDetectHelper luminaDetectHelper = new LuminaDetectHelper();
-    LuminaGacha luminaGacha = new LuminaGacha();
     LuminaCourier luminaCourier = new LuminaCourier();
 
     public void sendBasicMessage(@NotNull Bot bot, @NotNull OnebotEvent.GroupMessageEvent event, LuminaRequireSetup luminaRequireSetup) {
@@ -64,11 +66,8 @@ public class LuminaPluginHelper {
         System.out.println("OtherKeyword其中一个匹配？" + (otherKeywordListMatched ? "是" : "否"));
 
         Map<String, List<String>> tempMap = luminaRequireSetup.getHybridRespondMap();
-        List<String> listText = tempMap.get("return-text");
-        List<String> textImage = tempMap.get("return-image");
-
-
-
+        List<String> listText = tempMap.get(RETURN_TEXT);
+        List<String> textImage = tempMap.get(RETURN_IMAGE);
 
 
         Msg msg_running;
@@ -109,14 +108,19 @@ public class LuminaPluginHelper {
         System.out.println("要求侦测的从关键字：" + luminaRequireSetup.getMasterKeyword());
 
         List<String> otherKeywordList = luminaRequireSetup.getOtherKeywordList();
-        StringBuilder otherKeywordListStr;
-        otherKeywordListStr = new StringBuilder();
-        int count = 0;
-        for(String s : otherKeywordList) {
-            count += 1;
-            otherKeywordListStr.append("[OtherKeyword#").append(count).append("=").append(s).append("]");
+
+        if(otherKeywordList != null) {
+
+            StringBuilder otherKeywordListStr;
+            otherKeywordListStr = new StringBuilder();
+            int count = 0;
+            for(String s : otherKeywordList) {
+                count += 1;
+                otherKeywordListStr.append("[OtherKeyword#").append(count).append("=").append(s).append("]");
+            }
+            System.out.println("要求匹配的其他关键字:" + otherKeywordListStr);
         }
-        System.out.println("要求匹配的其他关键字:" + otherKeywordListStr);
+
         System.out.println("侦测到的信息 全字匹配要求：" + (luminaRequireSetup.isRequireKeywordMatch() ? "是":"否"));
         System.out.println("回复时 使用回复框回复对话：" + (luminaRequireSetup.isRequireRespReply() ? "是":"否"));
         System.out.println("回复时 对对方进行艾特操作：" + (luminaRequireSetup.isRequireRespAt() ? "是":"否"));
@@ -124,11 +128,33 @@ public class LuminaPluginHelper {
 //
         boolean atDetectAndRequire = luminaRequireSetup.isRequireAtLumina() && luminaRequireSetup.isDetectAtLumina();
         boolean atNotDetect = !luminaRequireSetup.isDetectAtLumina();
-        boolean matchedKeyword = event.getRawMessage().contains(luminaRequireSetup.getMasterKeyword()) || event.getRawMessage().contains(luminaRequireSetup.getSecondKeyword());
+        boolean matchedKeyword = luminaDetectHelper.checkDetectMainKeyword(event.getRawMessage(), luminaRequireSetup.getMasterKeyword(), luminaRequireSetup.getSecondKeyword());
 
+        System.out.println("Master和Second其中一个匹配？" + (matchedKeyword ? "是" : "否"));
 
+        //  测试区 测试完需删除
+        if(luminaRequireSetup.getOtherKeywordList() != null) {
+            boolean otherKeywordListMatched = luminaDetectHelper.checkDetectOtherKeywordList(event.getRawMessage(), luminaRequireSetup.getOtherKeywordList());
+            System.out.println("OtherKeyword其中一个匹配？" + (otherKeywordListMatched ? "是" : "否"));
+        }
 
+        Map<String, List<String>> tempMap = luminaRequireSetup.getHybridRespondMap();
+        List<String> listText = tempMap.get(RETURN_TEXT);
+        List<String> textImage = tempMap.get(RETURN_IMAGE);
 
+        if(luminaRequireSetup.getOtherKeywordList() == null) {
+            if(luminaRequireSetup.isRequireRespReply() && atNotDetect && matchedKeyword) {
+                bot.sendGroupMsg(event.getGroupId(), luminaCourier.buildMultiReplyPairMessage(event, luminaRequireSetup.getHybridRespondMap()), false);
+            } else if(!luminaRequireSetup.isRequireRespReply() && atNotDetect && matchedKeyword && luminaDetectHelper.checkDetectOtherKeywordList(event.getRawMessage(), luminaRequireSetup.getOtherKeywordList())){
+                bot.sendGroupMsg(event.getGroupId(), luminaCourier.buildMultiAtUserPairMessage(event, luminaRequireSetup.getHybridRespondMap()), false);
+            }
+        }else {
+            if(luminaRequireSetup.isRequireRespReply() && atNotDetect && matchedKeyword && luminaDetectHelper.checkDetectOtherKeywordList(event.getRawMessage(), luminaRequireSetup.getOtherKeywordList())) {
+                bot.sendGroupMsg(event.getGroupId(), luminaCourier.buildMultiReplyPairMessage(event, luminaRequireSetup.getHybridRespondMap()), false);
+            } else if(!luminaRequireSetup.isRequireRespReply() && atNotDetect && matchedKeyword && luminaDetectHelper.checkDetectOtherKeywordList(event.getRawMessage(), luminaRequireSetup.getOtherKeywordList())){
+                bot.sendGroupMsg(event.getGroupId(), luminaCourier.buildMultiAtUserPairMessage(event, luminaRequireSetup.getHybridRespondMap()), false);
+            }
+        }
 
     }
 

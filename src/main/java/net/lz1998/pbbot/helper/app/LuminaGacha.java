@@ -26,22 +26,22 @@ public class LuminaGacha {
 
         if(inRangeA) {
             backWord = " 抽中了大吉！";
-            backImageURL = "/1";
+            backImageURL = "https://i.loli.net/2021/08/30/6Jf1RWQVBaCDmS3.png";
         } else if(inRangeB) {
             backWord = " 抽中了中吉！";
-            backImageURL = "/2";
+            backImageURL = "https://i.loli.net/2021/08/30/6Jf1RWQVBaCDmS3.png";
         } else if(inRangeC) {
             backWord = " 抽中了木吉！（欸？）";
-            backImageURL = "/3";
+            backImageURL = "https://gchat.qpic.cn/gchatpic_new/179223207/661246876-2585424449-D7ABF276327163E9E9073843F22F78C9/0?term=3";
         } else if(inRangeD) {
             backWord = " 抽中了凶！摸摸头~";
-            backImageURL = "/3";
+            backImageURL = "https://gchat.qpic.cn/gchatpic_new/179223207/661246876-2585424449-D7ABF276327163E9E9073843F22F78C9/0?term=3";
         } else if(inRangeE) {
             backWord = " 抽中了大凶！\n 呜哇！喵都发火了！";
-            backImageURL = "/4";
+            backImageURL = "https://gchat.qpic.cn/gchatpic_new/179223207/661246876-2585424449-D7ABF276327163E9E9073843F22F78C9/0?term=3";
         } else {
             backWord = "你运气真的非常好！出现这种结果的概率是千分之一！\n 作者决定请你喝一瓶可乐，请私信领取！";
-            backImageURL = "/5";
+            backImageURL = "https://i.loli.net/2021/08/30/6Jf1RWQVBaCDmS3.png";
         }
 
         gachaResultList.add(backWord);
