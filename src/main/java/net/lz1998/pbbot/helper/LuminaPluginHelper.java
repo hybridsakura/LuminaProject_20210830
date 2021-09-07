@@ -16,6 +16,7 @@ public class LuminaPluginHelper {
     LuminaPrebuild luminaPrebuild = new LuminaPrebuild();
     LuminaDetectHelper luminaDetectHelper = new LuminaDetectHelper();
     LuminaGacha luminaGacha = new LuminaGacha();
+    LuminaCourier luminaCourier = new LuminaCourier();
 
     public void sendBasicMessage(@NotNull Bot bot, @NotNull OnebotEvent.GroupMessageEvent event, LuminaRequireSetup luminaRequireSetup) {
 
@@ -72,15 +73,15 @@ public class LuminaPluginHelper {
 
         Msg msg_running;
         if(luminaRequireSetup.isRequireRespReply() && atNotDetect && matchedKeyword && luminaDetectHelper.checkDetectOtherKeywordList(event.getRawMessage(), luminaRequireSetup.getOtherKeywordList())) {
-            msg_running = Msg.builder()
-                    .reply(event.getMessageId())
-                    .text(listText.get(0));
-            bot.sendGroupMsg(event.getGroupId(), msg_running, false);
+//            msg_running = Msg.builder()
+//                    .reply(event.getMessageId())
+//                    .text(listText.get(0));
+            bot.sendGroupMsg(event.getGroupId(), luminaCourier.buildBasicReplyMessage(event, listText), false);
         } else if(!luminaRequireSetup.isRequireRespReply() && atNotDetect && matchedKeyword && luminaDetectHelper.checkDetectOtherKeywordList(event.getRawMessage(), luminaRequireSetup.getOtherKeywordList())){
-            msg_running = Msg.builder()
-                    .at(event.getUserId())
-                    .text(listText.get(0));
-            bot.sendGroupMsg(event.getGroupId(), msg_running, false);
+//            msg_running = Msg.builder()
+//                    .at(event.getUserId())
+//                    .text(listText.get(0));
+            bot.sendGroupMsg(event.getGroupId(), luminaCourier.buildBasicAtUserMessage(event, listText), false);
         }
 //        bot.sendGroupMsg(event.getGroupId(), Msg.builder().reply(event.getMessageId()).text("lumina-factory-test"), false);
     }
@@ -124,6 +125,10 @@ public class LuminaPluginHelper {
         boolean atDetectAndRequire = luminaRequireSetup.isRequireAtLumina() && luminaRequireSetup.isDetectAtLumina();
         boolean atNotDetect = !luminaRequireSetup.isDetectAtLumina();
         boolean matchedKeyword = event.getRawMessage().contains(luminaRequireSetup.getMasterKeyword()) || event.getRawMessage().contains(luminaRequireSetup.getSecondKeyword());
+
+
+
+
 
     }
 

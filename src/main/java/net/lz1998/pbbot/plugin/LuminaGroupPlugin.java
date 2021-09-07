@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+import static net.lz1998.pbbot.helper.LuminaCommon.RETURN_IMAGE;
+import static net.lz1998.pbbot.helper.LuminaCommon.RETURN_TEXT;
+
 @SuppressWarnings("DuplicatedCode")
 @Component
 public class LuminaGroupPlugin extends BotPlugin {
@@ -65,8 +68,8 @@ public class LuminaGroupPlugin extends BotPlugin {
         List<String> loadedReturnImage_S0_2109060924 = new ArrayList<>();                              //  图片地址表 回复的图片有哪些，一张图片占用一个下标
         loadedReturnText_S0_2109060924.add("咱是心音，是美羽姐姐做的喵都机器人哦！");                                  //
         loadedReturnImage_S0_2109060924.add("/image/1");                                               //
-        hybridMessageMap_S0_2109060924.put("return-text", loadedReturnText_S0_2109060924);
-        hybridMessageMap_S0_2109060924.put("return-image", loadedReturnImage_S0_2109060924);
+        hybridMessageMap_S0_2109060924.put(RETURN_TEXT, loadedReturnText_S0_2109060924);
+        hybridMessageMap_S0_2109060924.put(RETURN_IMAGE, loadedReturnImage_S0_2109060924);
         lumina_Setup2109060924.setHybridRespondMap(hybridMessageMap_S0_2109060924);
         //  需要以艾特回复对方吗/需要使用回复框回复对方吗
         lumina_Setup2109060924.setRequireRespAt(false);
@@ -94,9 +97,11 @@ public class LuminaGroupPlugin extends BotPlugin {
         lumina_Setup2109060950.setRequireRespReply(true);
         //  构造回复信息
         loadedReturnText_S0_2109060950.add("瞄~（喵都叫）");
+        loadedReturnText_S0_2109060950.add("瞄~（喵都叫）");
+        loadedReturnText_S0_2109060950.add("瞄~（喵都叫）");
         loadedReturnImage_S0_2109060950.add("/image/1");
-        hybridMessageMap_S0_2109060950.put("return-text", loadedReturnText_S0_2109060950);
-        hybridMessageMap_S0_2109060950.put("return-image", loadedReturnImage_S0_2109060950);
+        hybridMessageMap_S0_2109060950.put(RETURN_TEXT, loadedReturnText_S0_2109060950);
+        hybridMessageMap_S0_2109060950.put(RETURN_IMAGE, loadedReturnImage_S0_2109060950);
         //  构造的参数包装统一设定
         lumina_Setup2109060950.setOtherKeywordList(otherKeyword_S0_2109060950);
         lumina_Setup2109060950.setHybridRespondMap(hybridMessageMap_S0_2109060950);
@@ -127,8 +132,8 @@ public class LuminaGroupPlugin extends BotPlugin {
         //  构造回复信息
         loadedReturnText_S0_2109061041.add("所选用户已设置成[luminabot]的管理员（目前无实质功能）");
         loadedReturnImage_S0_2109061041.add("/image/1");
-        hybridMessageMap_S0_2109061041.put("return-text", loadedReturnText_S0_2109061041);
-        hybridMessageMap_S0_2109061041.put("return-image", loadedReturnImage_S0_2109061041);
+        hybridMessageMap_S0_2109061041.put(RETURN_TEXT, loadedReturnText_S0_2109061041);
+        hybridMessageMap_S0_2109061041.put(RETURN_IMAGE, loadedReturnImage_S0_2109061041);
         //  构造的参数包装统一设定
         lumina_Setup2109061041.setOtherKeywordList(otherKeyword_S0_2109061041);
         lumina_Setup2109061041.setHybridRespondMap(hybridMessageMap_S0_2109061041);
@@ -159,8 +164,8 @@ public class LuminaGroupPlugin extends BotPlugin {
         //  构造回复信息
         loadedReturnText_Gacha.add("所选用户已设置成[luminabot]的管理员（目前无实质功能）");
         loadedReturnImage_Gacha.add("/image/1");
-        hybridMessageMap_Gacha.put("return-text", loadedReturnText_Gacha);
-        hybridMessageMap_Gacha.put("return-image", loadedReturnImage_Gacha);
+        hybridMessageMap_Gacha.put(RETURN_TEXT, loadedReturnText_Gacha);
+        hybridMessageMap_Gacha.put(RETURN_IMAGE, loadedReturnImage_Gacha);
         //  构造的参数包装统一设定
 //        setupGacha.setOtherKeywordList(otherKeyword_Gacha);
         setupGacha.setHybridRespondMap(hybridMessageMap_Gacha);
