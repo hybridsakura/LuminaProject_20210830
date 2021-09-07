@@ -30,6 +30,7 @@ public class LuminaGroupPlugin extends BotPlugin {
         LuminaRequireSetup lumina_EmptyMessageWithAt = new LuminaRequireSetup();            //
         //  构造关键字匹配
         lumina_EmptyMessageWithAt.setMasterKeyword("心音");
+        lumina_EmptyMessageWithAt.setRequireKeywordMatch(false);
         lumina_EmptyMessageWithAt.setSecondKeyword("在吗");
         List<String> otherKeyword = new ArrayList<>();
         otherKeyword.add("状态报告");
@@ -90,6 +91,7 @@ public class LuminaGroupPlugin extends BotPlugin {
         List<String> loadedReturnImage_S0_2109060950 = new ArrayList<>();
         //  构造关键字匹配
         lumina_Setup2109060950.setMasterKeyword("喵都叫");
+        lumina_EmptyMessageWithAt.setRequireKeywordMatch(false);
         lumina_Setup2109060950.setSecondKeyword("");
         otherKeyword_S0_2109060950.add("一键");
         //  是否需要检测艾特露米娜
@@ -122,6 +124,7 @@ public class LuminaGroupPlugin extends BotPlugin {
         List<String> loadedReturnImage_S0_2109061041 = new ArrayList<>();
         //  构造关键字匹配
         lumina_Setup2109061041.setMasterKeyword("心音");
+        lumina_EmptyMessageWithAt.setRequireKeywordMatch(false);
         lumina_Setup2109061041.setSecondKeyword(" /op ");
         otherKeyword_S0_2109061041.add("公主");
         otherKeyword_S0_2109061041.add("云妹");

@@ -58,7 +58,7 @@ public class LuminaPluginHelper {
 //
         boolean atDetectAndRequire = luminaRequireSetup.isRequireAtLumina() && luminaRequireSetup.isDetectAtLumina();
         boolean atNotDetect = !luminaRequireSetup.isDetectAtLumina();
-        boolean matchedKeyword = luminaDetectHelper.checkDetectMainKeyword(event.getRawMessage(), luminaRequireSetup.getMasterKeyword(), luminaRequireSetup.getSecondKeyword());
+        boolean matchedKeyword = luminaDetectHelper.checkDetectMainKeyword(event.getRawMessage(), luminaRequireSetup.getMasterKeyword(), luminaRequireSetup.getSecondKeyword(), luminaRequireSetup.isRequireKeywordMatch());
         //  测试区 测试完需删除
         boolean otherKeywordListMatched = luminaDetectHelper.checkDetectOtherKeywordList(event.getRawMessage(), luminaRequireSetup.getOtherKeywordList());
 
@@ -128,7 +128,7 @@ public class LuminaPluginHelper {
 //
         boolean atDetectAndRequire = luminaRequireSetup.isRequireAtLumina() && luminaRequireSetup.isDetectAtLumina();
         boolean atNotDetect = !luminaRequireSetup.isDetectAtLumina();
-        boolean matchedKeyword = luminaDetectHelper.checkDetectMainKeyword(event.getRawMessage(), luminaRequireSetup.getMasterKeyword(), luminaRequireSetup.getSecondKeyword());
+        boolean matchedKeyword = luminaDetectHelper.checkDetectMainKeyword(event.getRawMessage(), luminaRequireSetup.getMasterKeyword(), luminaRequireSetup.getSecondKeyword(), luminaRequireSetup.isRequireKeywordMatch());
 
         System.out.println("Master和Second其中一个匹配？" + (matchedKeyword ? "是" : "否"));
 
