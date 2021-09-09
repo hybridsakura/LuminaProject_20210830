@@ -1,11 +1,10 @@
 package net.lz1998.pbbot.helper;
 
 import net.lz1998.pbbot.helper.entity.LuminaRequireSetup;
+import net.lz1998.pbbot.helper.entity.OrderSetup;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import static net.lz1998.pbbot.helper.LuminaCommon.LUMINA_KEYWORD;
 
 public class LuminaPrebuild {
 
@@ -41,33 +40,22 @@ public class LuminaPrebuild {
 
     }
 
-//    public Map<String, Object> prebuildKeywordList() {
-//
-//        String masterKeyword = "s1";                                       //  主要关键字，用于匹配单一内容或者
-//        String secondKeyword = "s2";                                       //  次要关键字，可能用于命令或者其他
-//        List<String> otherKeywordList = new ArrayList<>();                              //  消息中侦测到的关键字表
-//        otherKeywordList.add("s3");
-//        otherKeywordList.add("s4");
-//
-//
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("MasterKeyword", masterKeyword);
-//        map.put("SecondKeyword", secondKeyword);
-//        map.put("OtherKeywordList", otherKeywordList);
-//
-//
-//        return map;
-//    }
+    public OrderSetup simplyRequireSetupGetOrder(@NotNull LuminaRequireSetup requireSetup) {
+        if(requireSetup.getMasterKeyword() != null && requireSetup.getMasterKeyword().equals(LUMINA_KEYWORD)) {
+            System.out.println("AwarenessIntegrateLumina - 侦测到使用LuminaSystem关键字");
+            OrderSetup rtn_OrderSetup = new OrderSetup();
+            if(requireSetup.getSecondKeyword() != null) {
+                rtn_OrderSetup.setOrderOperator(requireSetup.getSecondKeyword());
+            }
+            if(requireSetup.getOtherKeywordList() != null && requireSetup.getOtherKeywordList().get(0) != null) {
+                rtn_OrderSetup.setOrderContent(requireSetup.getOtherKeywordList().get(0));
+            }
+            return rtn_OrderSetup;
+        }else {
+            System.out.println("simplyRequireSetupGetOrder 返回为Null");
+            return null;
+        }
+    }
 
-//    public LuminaMessage setLuminaBlacklistRule(LuminaMessage message, List<Long>... blackList) {
-//
-//        List<Long> defaultBlackQQList = new ArrayList<>();
-//        List<Long> defaultBlackQQGroupList = new ArrayList<>();
-//
-//
-//
-//
-//
-//    }
 
 }
